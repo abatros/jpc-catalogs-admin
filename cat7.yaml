@@ -1,0 +1,45 @@
+#hello
+---
+- h1: 7-Level-switches
+  path: 7
+  lang: en
+  publisher: Ultimheat
+  fpath: /media/dkz/Seagate/git-u7/Catalog/7-Level-switches/
+  pic: 7-Level-switches
+
+- h2: Summary
+  path: '7.1'
+  lang: en
+  url: 7-Level-switchesENSum20130707compressed.pdf
+
+- h2: Level Switches Horizontal
+  path: '7.2'
+  lang: en
+  url: 7-Level-switchesENHorizontal20130707compressed.pdf
+
+- h2: Level Switches Vertical
+  path: '7.3'
+  lang: en
+  url: 7-Level-switchesENVertical20130707compressed.pdf
+
+- h1: 7-Level-switches
+  path: 7
+  lang: fr
+  publisher: Ultimheat
+  fpath: /media/dkz/Seagate/git-u7/Catalog/7-Level-switches/
+  pic: 7-Level-switches
+
+- h2: Sommaire
+  path: '7.1_sum'
+  lang: fr
+  url: 7-Level-switchesFRSum20130707compressed.pdf
+
+- h2: Level Switches Horizontal
+  path: '7.2_horizontal'
+  lang: fr
+  url: 7-Level-switchesFRHorizontal20130707compressed.pdf
+
+- h2: Level Switches Vertical
+  path: '7.3_vertical'
+  lang: fr
+  url: 7-Level-switchesFRVertical20130707compressed.pdf

@@ -1,0 +1,60 @@
+#xp103-import 1 Ultimheat commercial test 2019.xlsx
+---
+- edition: u2013_fr
+  path: u2013_fr
+  lang: fr
+  yp: 2013
+  publisher: Ultimheat
+
+- h1: Thermostats électromécaniques et électroniques  pour intégration
+  path: u2013_fr.1 
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+
+- h2: Sommaire
+  path: u2013_fr.1.1
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR C1-P2 20190513
+
+- h2: Introduction à la technologie des thermostats
+  path: u2013_fr.1.2
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P3-P29 20190513
+
+- h2: Comparaison des différents modèles de thermostats
+  path: u2013_fr.1.3
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P30-P32 20190513
+
+- h2: Table des références
+  path: u2013_fr.1.4
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P33-P34 20190513
+
+- h2: Thermostats de régulation
+  path: u2013_fr.1.5
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P37-P50 20190513
+
+- h2: Thermostats électroniques
+  path: u2013_fr.1.6
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P53-P58 20190513
+
+- h2: Limiteurs à réarmement manuel et fusibles thermiques
+  path: u2013_fr.1.7
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P61-P70 20190513
+
+- h2: Accessoires de thermostats
+  path: u2013_fr.1.8
+  lang: fr
+  pic: Cat1 C1 Ultimheat FR 20190513
+  url: Cat1 Ultimheat FR P73-P80 20190513

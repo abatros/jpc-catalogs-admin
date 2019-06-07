@@ -1,0 +1,95 @@
+- edition: u2013_en
+  path: u2013_en
+  lang: en
+  yp: 2013
+  publisher: Ultimheat
+
+- h1: 6 Flow Switches
+  path: u2013_en.6
+  lang: en
+  fpath: /media/dkz/Seagate/git-u7/Catalog/6-Flow-switches/
+  pic: 6-Flow-switches
+
+- h2: Accessoires
+  path: 'u2013_en.6.1'
+  lang: en
+  url: 6-Flow-switchesENAcc20130703compressed.pdf
+
+- h2: Flap Type
+  path: 'u2013_en.6.2'
+  lang: en
+  url: 6-Flow-switchesENFlap-type20130703compressed.pdf
+
+- h2: Lists
+  path: 'u2013_en.6.3'
+  lang: en
+  url: 6-Flow-switchesENLists20130703compressed.pdf
+
+- h2: Microswitches
+  path: 'u2013_en.6.4'
+  lang: en
+  url: 6-Flow-switchesENmicroswitch20130703compressed.pdf
+
+- h2: Piston Type
+  path: 'u2013_en.6.5'
+  lang: en
+  url: 6-Flow-switchesENPiston-type20130703compressed.pdf
+
+- h2: Reed Switches
+  path: 'u2013_en.6.6'
+  lang: en
+  url: 6-Flow-switchesENreed-switch20130703compressed.pdf
+
+- h2: Summary
+  path: 'u2013_en.6.7'
+  lang: en
+  url: 6-Flow-switchesENsum20130703compressed.pdf
+
+########################################################################
+
+- edition: u2013_fr
+  path: u2013_fr
+  lang: fr
+  yp: 2013
+  publisher: Ultimheat
+
+- h1: Flow Switches
+  path: u2013_fr.6
+  lang: fr
+  fpath: /media/dkz/Seagate/git-u7/Catalog/6-Flow-switches/
+  pic: 6-Flow-switches
+
+- h2: Accessoires
+  path: 'u2013_fr.6.1'
+  lang: en
+  url: 6-Flow-switchesFRAcc20130703compressed.pdf
+
+- h2: Flap Type
+  path: 'u2013_fr.6.2'
+  lang: en
+  url: 6-Flow-switchesFRFlap-type20130703compressed.pdf
+
+- h2: Lists
+  path: 'u2013_fr.6.3'
+  lang: en
+  url: 6-Flow-switchesFRLists20130703compressed.pdf
+
+- h2: Micro Switches
+  path: 'u2013_fr.6.4'
+  lang: en
+  url: 6-Flow-switchesFRmicroswitch20130703compressed.pdf
+
+- h2: Piston Type
+  path: 'u2013_fr.6.5'
+  lang: en
+  url: 6-Flow-switchesFRPiston-type20130703compressed.pdf
+
+- h2: Reed Switches
+  path: 'u2013_fr.6.6'
+  lang: en
+  url: 6-Flow-switchesFRreed-switch20130703compressed.pdf
+
+- h2: Summary
+  path: 'u2013_fr.6.7'
+  lang: en
+  url: 6-Flow-switchesFRsum20130703compressed.pdf

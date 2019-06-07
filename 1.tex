@@ -1,0 +1,84 @@
+
+hello, this is a link
+
+
+xx \pdfstartlink
+  height 10pt depth 10pt
+  user {
+  /Subtype /Link
+  /A <<
+      /Type /Action
+      /S /URI
+      /URI (http://ultimheat.com/)
+  >>}
+  ziziz
+  \pdfendlink
+
+
+% \href{http://www.tug.org/errors}{aliquyam erat, sed diam voluptua.}
+
+\end
+
+here a link: \pdfstartlink           % start a link
+                        %
+    height 10pt         % dimensions of the link can be controlled
+    depth 3pt           % via <rule spec>; if some of dimensions in
+                        % <rule spec> is not given, the corresponding
+                        % value of the parent box will be used. If
+                        % \pdflinkmargin is not zero then its value
+                        % will be added to the margins of the link
+                        %
+    attr{/C [0.9 0 0]   % additional attributes of link
+    /Border [0 0 2]}    %
+                        %
+                        % action specification (exactly one of the
+                        % following must be specified):
+                        %
+   goto                 % goto action
+                        %
+       % file{file.pdf} % optional file specification; can be used only with
+                        % `goto' action or `thread' action (see below). If
+                        % action identifier is name then there should be a
+                        % destination or a thread with same name identifier
+                        % in the file; if action identifier is number then it
+                        % means page number for `goto' action (in this case it
+                        % will take effect as `fitb' specification) and index
+                        % number of thread for `thread' action (the first
+                        % thread in a document has index number 0)
+                        %
+                        % goto action identifier (exactly one of the following
+                        % must be specified):
+                        %
+         num 1          % goto destination with num identifier
+       % name{dest1}    % goto destination with name identifier
+       % page 1 {/Fit}  % goto page 1 and fit the whole page
+                        %
+                        %
+  % thread              % thread action; start to read a thread
+                        %
+        %file{file.pdf} % optional file specification
+                        %
+                        % thread action type (exactly one of the following
+                        % must be specified):
+                        %
+       % num 1          % read thread with num identifier id=`num 1'
+       % name{thread2}  % read thread with name identifier id=`name{thread2}'
+                        %
+                        %
+   user{               % user-defined action; a URI action can be specified
+                       % as below
+        /Subtype /Link
+        /A <<
+            /Type /Action
+            /S /URI
+            /URI (http://www.tug.org/)
+        >>}
+`num 1'%
+\pdfendlink             % end of link; if \pdfstartlink and
+                        % \pdfendlink end up in different hboxes (in this
+                        % case the boxes must have the same box nesting
+                        % level), all hboxes between them will be treated
+                        % as part of the link. Line breaks and even page
+                        % breaks are allowed between \pdfstartlink and
+                        % \pdfendlink
+\end
