@@ -3,8 +3,8 @@
 
 console.log(`
   *************************************************************
-  xp107-catalogs-directory.js
-  for jpc-catalogs => catalog is a set of sections (pdf-files)
+  xp105-app-instance-xray.js
+  every object with package_id
   *************************************************************
   `)
 
@@ -32,6 +32,7 @@ const argv = require('yargs')
 
 const verbose = argv.verbose;
 const pg_monitor = (verbose>1);
+
 const instance_name = argv._[0];
 
 if (!instance_name) {
@@ -43,6 +44,7 @@ if (!instance_name) {
     `);
   process.exit(-1)
 }
+
 
 console.dir(`Connect database - switching async mode.`)
 
@@ -81,55 +83,25 @@ async function main() {
       HERE: app has {package_id, app-folder}
   ************************************************/
 
-  const catalogs = await db.query(`
-    -- catalogs lookup.
+  const objects = await db.query(`
   select
-    item_id,
-    revision_id,
-    object_type,
-    path,
-    name,
-    title,
-    data->>'h1' as h1, data
-  from cms.revisions_latest
-  where
-      (parent_id = $(app_folder))
-      -- (package_id = $(package_id))
-  and (object_type = 'volume-cat')
-  order by path, name
-  `,{app_folder,package_id}, {single:false})
-  .then(cats =>{
-    console.log(`> found ${cats.length} catalogs.`)
-    return cats;
+    object_id, object_type, context_id, title
+  from acs_objects
+  where package_id = $(package_id)
+  order by object_id
+  `,{package_id}, {single:false})
+  .then(objects =>{
+    console.log(`> found ${objects.length} objects.`)
+    return objects;
   });
 
 
-  /********************************************
-    Catalogs are direct children in app_folder
-  *********************************************/
-  for (let cat of catalogs) {
-    const {item_id, revision_id, name, path:ipath, h1, data, object_type, title} = cat;
-    console.log(`[${item_id}:${revision_id}:${name}] ${object_type} @(${ipath}) "${title}"`)
+  for (let o of objects) {
+    const {object_id, object_type, context_id, title} = o;
+    console.log(`[${object_id}:${context_id}] {${object_type}} ${title}`)
   }
 
-
-/*
-  let not_found =0, txt_count =0;
-  for (let ix=0; ix<catalogs.length; ix++) {
-    const a = catalogs[ix];
-    if (verbose) {
-      console.log(a)
-    } else {
-      const {item_id, revision_id, name, path:ipath, h1, h2 } = catalogs[ix];
-      _assert(h2, catalogs[ix], "Missing h2")
-      console.log(`[${item_id}:${revision_id}] @(${ipath}) ${name} (${h1}/${h2})`)
-    }
-//    const {url, fsize, timeStamp} = data;
-//    const {revision_id} = pdf;
-
-  } // each catalog.
-*/
-  console.log(`> found ${catalogs.length} catalogs.`)
+  console.log(`> found ${objects.length} objects.`)
   await api.close_connection(db)
   console.dir('Closing connection - Exit: Ok.')
 }

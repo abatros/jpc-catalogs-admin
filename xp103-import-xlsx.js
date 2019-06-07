@@ -74,8 +74,8 @@ xlsx.forEach((it,ix) =>{
   lang = lang.replace('French','fr')
   //console.log(`ix:${ix} @${icat}.${isec} yp:${_yp} =>`,yp)
   if (!edition) {
-    edition = {publisher, yp, lang, name:`u${yp}_${lang}`}
-    yaml.push(`- edition: ${edition.name}\n  path: ${edition.name}\n  lang: ${lang}\n  yp: ${yp}\n  publisher: ${edition.publisher}\n`);
+    edition = {publisher, yp, lang, name:`u${yp}-${lang}`}
+    yaml.push(`- edition: ${edition.name}\n  lang: ${lang}\n  yp: ${yp}\n  publisher: ${edition.publisher}\n`);
   }
   else {
     if (edition.publisher != it.publisherName) {
@@ -97,13 +97,13 @@ xlsx.forEach((it,ix) =>{
     _icat = icat;
     _isec = null;
     const {pic, h1} = it;
-    yaml.push(`- h1: ${h1}\n  path: ${edition.name}.${icat} \n  lang: ${lang}\n  pic: ${pic}\n`);
+    yaml.push(`- h1: ${h1}\n  path: ${icat} \n  lang: ${lang}\n  pic: ${pic}\n`);
   }
 
   if (_isec != isec) {
     _isec = isec;
     const {pic, h2, pdf:url} = it;
-    yaml.push(`- h2: ${h2}\n  path: ${edition.name}.${icat}.${isec}\n  lang: ${lang}\n  pic: ${pic}\n  url: ${url}\n`)
+    yaml.push(`- h2: ${h2}\n  path: ${icat}.${isec}\n  lang: ${lang}\n  pic: ${pic}\n  url: ${url}\n`)
   }
 
 })

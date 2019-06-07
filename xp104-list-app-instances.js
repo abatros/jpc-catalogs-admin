@@ -19,7 +19,6 @@ _assert(api.cms_instance__new, api, "Missing cms_instance__new")
 const argv = require('yargs')
   .alias('v','verbose').count('verbose')
   .boolean('pg-monitor')
-  .boolean('commit')
   .options({
     'pg-monitor': {default:false},
     'limit': {default:99999}, // stop when error, if --no-stop, show error.
@@ -27,7 +26,7 @@ const argv = require('yargs')
   }).argv;
 
 const verbose = argv.verbose;
-const pg_monitor = (verbose>0);
+const pg_monitor = (verbose>1);
 
 console.dir(`Connect database - switching async mode.`)
 
@@ -56,7 +55,14 @@ async function main() {
     and parent_id = -100
     `,[],{single:false})
   .then(apps =>{
-    console.log(apps)
+    if (verbose) {
+      console.log(apps)
+    } else {
+      apps.forEach(app =>{
+        const {package_id, folder_id, name, label, instance_name} = app;
+        console.log(`[${package_id},${folder_id}] "${instance_name}"`)
+      })
+    }
   });
 
 

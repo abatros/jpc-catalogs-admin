@@ -31,6 +31,18 @@ const argv = require('yargs')
 
 const verbose = argv.verbose;
 const pg_monitor = (verbose>1);
+const {ipath} = argv;
+const instance_name = argv._[0];
+
+if (!instance_name) {
+  console.log(`
+    *****************************************
+    FATAL: You must specify an instance-name
+    ex: "u2018_fr", "giga_en", etc...
+    *****************************************
+    `);
+  process.exit(-1)
+}
 
 console.dir(`Connecting to database - switching async mode.`)
 
@@ -52,7 +64,7 @@ async function main() {
 
   await db.query(`
     select * from cms.app_instances where instance_name = $1;
-    `, ['jpc-catalogs'], {single:false})
+    `, [instance_name], {single:false})
   .then(apps =>{
     if (apps.length == 1) {
       app = apps[0]; // global.
@@ -68,8 +80,8 @@ async function main() {
   ************************************************/
 
   await db.query(`
-    select cms.purge_all_revisions($1,'u2013_fr'::ltree) as rowCount
-  `,[app.package_id], {single:false})
+    select cms.purge_all_revisions($1,$2) as rowCount
+  `,[app.package_id, ''+(ipath||'')], {single:false})
   .then(retv =>{
     console.log(`> deleted:`,retv)
     //console.log(`> deleted rowcount:`,db.pgp)

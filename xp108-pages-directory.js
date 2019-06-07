@@ -33,6 +33,18 @@ const verbose = argv.verbose;
 const pg_monitor = (verbose>1);
 const {ipath} = argv;
 
+const instance_name = argv._[0];
+
+if (!instance_name) {
+  console.log(`
+    *****************************************
+    FATAL: You must specify an instance-name
+    ex: "u2018_fr", "giga_en", etc...
+    *****************************************
+    `);
+  process.exit(-1)
+}
+
 console.dir(`Connect database - switching async mode.`)
 
 main()
@@ -51,7 +63,7 @@ async function main() {
 
   await db.query(`
     select * from cms.app_instances where instance_name = $1;
-    `, ['jpc-catalogs'], {single:false})
+    `, [instance_name], {single:false})
   .then(apps =>{
     if (apps.length == 1) {
       app = apps[0]; // global.

@@ -61,6 +61,7 @@ Inheritance : {pic}
 */
 let pic = null;
 let fpath = null;
+let instance_name =null;
 
 for (let it of yaml_data) {
   if (it.h1) {
@@ -78,8 +79,9 @@ for (let it of yaml_data) {
     continue;
   }
   if (it.edition) {
-    const {edition:name, lang, yp, publisher} = it;
-    //we should set the lang....
+    const {edition, lang, yp, publisher} = it;
+    //we should set the lang.... to propagate...
+    instance_name = edition;
     continue;
   }
   console.log(`found Invalid Object "${it}" in yaml-data o:`,it);
@@ -93,7 +95,13 @@ if (v1_errors >0) {
   console.log(`validation V1 passed.`);
 };
 
+if (!instance_name) {
+  throw "MISSING INSTANCE NAME";
+}
+
 // process.exit(-1)
+
+
 
 console.dir(`Connect database - switching async mode.`)
 
@@ -107,16 +115,12 @@ main()
 })
 
 
-async function main(_item_id) {
+async function main() {
   const {db} = await api.connect({pg_monitor});
-  //await api.select_app_instance('jpc-catalogs');
-
-  //await db.cms.create_test_query();
-
 
   await db.query(`
     select * from cms.app_instances where instance_name = $1;
-    `, ['jpc-catalogs'], {single:false})
+    `, [instance_name], {single:false})
   .then(apps =>{
     if (apps.length == 1) {
       // GLOBAL VARIABLE with db
@@ -129,7 +133,11 @@ async function main(_item_id) {
     }
   })
 
+
+
+
   /***********************************************
+      DB SNAP-SHORT to reduce db accesses.
       HERE: app has {package_id, app-folder}
       Lets get a directory (snap-shot)
       to reduce access to db.
@@ -157,7 +165,7 @@ async function main(_item_id) {
   *************************************************/
   for (let it of yaml_data) {
     if (it.h1) {
-      await commit_catalog(it, {verbose,recurse:false}) // do not commit sections.
+      await commit_catalog(it, {verbose,recurse:false})
       .then(retv =>{
         console.log(`commit_catalog@118 =>retv:`,retv)
       })
@@ -167,7 +175,7 @@ async function main(_item_id) {
       continue;
     }
     if (it.h2) {
-      await commit_section_pdf(it, {verbose,recurse:false}) // do not commit sections.
+      await commit_section_pdf(it, {verbose,recurse:false})
       .then(retv =>{
         console.log(`commit_section_pdf@151 =>retv:`,retv)
       })
@@ -177,6 +185,7 @@ async function main(_item_id) {
       continue;
     }
     if (it.edition) {
+      /**********************************
       //const {edition:name, lang, yp, publisher} = it;
       //we should set the lang....
       await commit_edition(it, {verbose,recurse:false}) // do not commit sections.
@@ -186,6 +195,7 @@ async function main(_item_id) {
       .catch(err =>{
         console.log(`commit_edition@154 =>err`,err)
       })
+      **********************************/
       continue;
     }
 
@@ -338,7 +348,7 @@ async function commit_catalog__(cat, options) {
     }
 
 
-continue;
+//continue;
 
 
     /*************************************************

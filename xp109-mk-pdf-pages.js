@@ -40,15 +40,13 @@ const argv = require('yargs')
 const verbose = argv.verbose;
 const pg_monitor = (verbose>1);
 const {ipath, force_refresh} = argv;
-const e_path = argv._[0];
+const instance_name = argv._[0];
 
-if (!e_path) {
+if (!instance_name) {
   console.log(`
     *********************************
     FATAL: You must specify
-    an edition ex: "u2018_fr"
-    a volume ex: "u2018_en.7"
-    or a section ex; "u2018_en.7.3"
+    an app-instance name ex: "u2018-fr"
     *********************************
     `);
   process.exit(-1)
@@ -72,7 +70,7 @@ async function main() {
 
   await db.query(`
     select * from cms.app_instances where instance_name = $1;
-    `, ['jpc-catalogs'], {single:false})
+    `, [instance_name], {single:false})
   .then(apps =>{
     if (apps.length == 1) {
       app = apps[0]; // global.
@@ -99,10 +97,10 @@ async function main() {
       data
     from cms.sections_pdf
     where (package_id = $(package_id))
-    and (path <@ $(e_path))
-    --order by item_id desc limit 3000
+    and (path <@ $(ipath))
+    order by path
     ;
-  `, {package_id:app.package_id, e_path}, {single:false})
+  `, {package_id:app.package_id, ipath:ipath||''}, {single:false})
   .then(cats =>{
     console.log(`> found ${cats.length} extlinks in app:`,app.instance_name)
     return cats;
@@ -262,7 +260,7 @@ async function locate_pdf_file(url) {
   url = url+'.pdf';
   const regex = new RegExp(url)
 //    const files = await find.file(regex,'/media/dkz/Seagate/2019-museum-assets');
-  const files = await find.file(regex,'/home/dkz/2019/jpc-catalogs-admin/pdf-20190517');
+  const files = await find.file(regex,'/home/dkz/2019/207-jpc-catalogs-admin/pdf-20190517');
 
   if (files.length <=0) {
     console.log(`ALERT: no files match for:`,url)

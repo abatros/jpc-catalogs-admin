@@ -20,6 +20,7 @@ const {_assert} = require('./lib/openacs-api');
 
 const argv = require('yargs')
   .alias('v','verbose').count('verbose')
+  .alias('p','ipath')
   .boolean('pg-monitor')
   .boolean('commit')
   .options({
@@ -30,6 +31,18 @@ const argv = require('yargs')
 
 const verbose = argv.verbose;
 const pg_monitor = (verbose>1);
+const {ipath} = argv;
+const instance_name = argv._[0];
+
+if (!instance_name) {
+  console.log(`
+    *****************************************
+    FATAL: You must specify an instance-name
+    ex: "u2018_fr", "giga_en", etc...
+    *****************************************
+    `);
+  process.exit(-1)
+}
 
 console.dir(`Connect database - switching async mode.`)
 
@@ -50,7 +63,7 @@ async function main() {
 
   await db.query(`
     select * from cms.app_instances where instance_name = $1;
-    `, ['jpc-catalogs'], {single:false})
+    `, [instance_name], {single:false})
   .then(apps =>{
     if (apps.length == 1) {
       app = apps[0]; // global.
@@ -63,8 +76,8 @@ async function main() {
 
   /***********************************************
       HERE: app has {package_id, app-folder}
+      ATTENTION TO: path:''+(ipath||'')
   ************************************************/
-  const e_path = 'u2013_fr';
 
   const pdf_files = await db.query(`
     select
@@ -76,12 +89,12 @@ async function main() {
       data
     from cms.sections_pdf
     where (package_id = $(package_id))
-    --and (path <@ '$(e_path)'::ltree)
+    and (path <@ $(path)::ltree)
     order by path;
   `,
-  {package_id:app.package_id, e_path}, {single:false})
+  {package_id:app.package_id, path:''+(ipath||'')}, {single:false})
   .then(files =>{
-    console.log(`> found ${files.length} sections-pdf for cat-edition: ${e_path}`)
+    console.log(`> found ${files.length} sections-pdf w/path:${ipath}`)
     return files;
   });
 

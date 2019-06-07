@@ -38,6 +38,18 @@ const argv = require('yargs')
 
 const verbose = argv.verbose;
 const pg_monitor = (verbose>0);
+const e_path = argv._[0];
+
+if (!e_path) {
+  console.log(`
+    *****************************************
+    FATAL: You must specify an instance-name
+    ex: "u2018_fr", "giga_en", etc...
+    *****************************************
+    `);
+  process.exit(-1)
+}
+
 
 console.dir(`Connect database - switching async mode.`)
 
@@ -66,7 +78,7 @@ async function main() {
   */
 
 
-  await api.cms_instance__new({name:'jpc-catalogs'})
+  await api.cms_instance__new({name:e_path})
   .then(retv =>{
     if (retv.app_folders) {
       console.log(`
