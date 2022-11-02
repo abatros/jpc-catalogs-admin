@@ -11,7 +11,7 @@
   "dependencies": {
     "find-promise": "^1.0.2",
     "fs-extra": "^8.0.1",
-    "hummus": "^1.0.104",
+    "hummus": "^1.0.111",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.11",
     "massive": "^5.10.0",
